@@ -18,9 +18,9 @@ https://grpc.io/docs/guides/
 - Golang
 https://golang.org/doc/
 - Learning Go in 12 minute
-https://www.youtube.com/watch?v=C8LgvuEBraI&list=LLCi91NyIGaZRDCCho05kA1w&index=3&t=0s
+https://www.youtube.com/watch?v=C8LgvuEBraI&t=19s
 - Concurrency tutorial in Go
-https://www.youtube.com/watch?v=LvgVSSpwND8&list=LLCi91NyIGaZRDCCho05kA1w&index=2&t=0s
+https://www.youtube.com/watch?v=LvgVSSpwND8&t=4s
 
 # Wiki sites that might be helpful to understand some concepts
 - Taint checking
@@ -29,4 +29,6 @@ https://en.wikipedia.org/wiki/Taint_checking
 https://en.wikipedia.org/wiki/Non-interference_(security)
 - Information flow (information theory)
 https://en.wikipedia.org/wiki/Information_flow_(information_theory)
--
+
+# Video that is relevant when 1 may hits
+https://www.youtube.com/watch?v=K8M7fFwdM9w
