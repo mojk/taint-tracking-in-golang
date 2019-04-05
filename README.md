@@ -5,6 +5,7 @@ Project for the Language-Based Security Course.
 https://docs.google.com/document/d/1FiiFnHUEg-CaLzTe8mgLnbbiA1u6iNjulv9qPpXE500/edit
 # Useful papers
 https://users.ece.cmu.edu/~aavgerin/papers/Oakland10.pdf
+https://www.cse.chalmers.se/~andrei/eurosp16.pdf
 # Things that you should know before jumping in to this project
 - Protocol Buffers
 https://developers.google.com/protocol-buffers/docs/overview
