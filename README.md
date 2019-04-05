@@ -1,11 +1,15 @@
-# taint-tracking-in-golang
+# Taint tracking in Golang
 Project for the Language-Based Security Course.
 # Proposal / Project Idea
 - Written by Per Hallgren @ Einride
 https://docs.google.com/document/d/1FiiFnHUEg-CaLzTe8mgLnbbiA1u6iNjulv9qPpXE500/edit
 # Useful papers
+- All You Ever Wanted to Know About Dynamic Taint Analysis and Forward Symbolic Execution
 https://users.ece.cmu.edu/~aavgerin/papers/Oakland10.pdf
+- Explicit Secrecy: A Policy for Taint Tracking
 https://www.cse.chalmers.se/~andrei/eurosp16.pdf
+- Information Flow Analysis for Go
+https://link.springer.com/chapter/10.1007/978-3-319-47166-2_30
 # Things that you should know before jumping in to this project
 - Protocol Buffers
 https://developers.google.com/protocol-buffers/docs/overview
@@ -21,3 +25,4 @@ https://en.wikipedia.org/wiki/Taint_checking
 https://en.wikipedia.org/wiki/Non-interference_(security)
 - Information flow (information theory)
 https://en.wikipedia.org/wiki/Information_flow_(information_theory)
+-
