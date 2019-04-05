@@ -12,3 +12,11 @@ https://developers.google.com/protocol-buffers/docs/overview
 https://grpc.io/docs/guides/
 - Golang
 https://golang.org/doc/
+
+# Wiki sites that might be helpful to understand some concepts
+- Taint checking
+https://en.wikipedia.org/wiki/Taint_checking
+- Non-interference (security)
+https://en.wikipedia.org/wiki/Non-interference_(security)
+- Information flow (information theory)
+https://en.wikipedia.org/wiki/Information_flow_(information_theory)
