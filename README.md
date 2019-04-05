@@ -17,6 +17,10 @@ https://developers.google.com/protocol-buffers/docs/overview
 https://grpc.io/docs/guides/
 - Golang
 https://golang.org/doc/
+- Learning Go in 12 minute
+https://www.youtube.com/watch?v=C8LgvuEBraI&list=LLCi91NyIGaZRDCCho05kA1w&index=3&t=0s
+- Concurrency tutorial in Go
+https://www.youtube.com/watch?v=LvgVSSpwND8&list=LLCi91NyIGaZRDCCho05kA1w&index=2&t=0s
 
 # Wiki sites that might be helpful to understand some concepts
 - Taint checking
