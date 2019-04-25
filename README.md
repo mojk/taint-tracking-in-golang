@@ -21,6 +21,8 @@ https://golang.org/doc/
 https://www.youtube.com/watch?v=C8LgvuEBraI&t=19s
 - Concurrency tutorial in Go
 https://www.youtube.com/watch?v=LvgVSSpwND8&t=4s
+- Static Analysis in Go
+https://www.slideshare.net/takuyaueda967/static-analysis-in-go
 
 # Wiki sites that might be helpful to understand some concepts
 - Taint checking
