@@ -17,7 +17,8 @@ const (
 type server struct{}
 
 /* server will handle logrequests*/
-
+//TODO make the control-node send requests so it can log
+//TODO Saving it in a logfile with timestamps?
 func (s *server) LogAction(ctx context.Context, in *pb.LogRequest) (*pb.LogReply, error) {
 	return &pb.LogReply{Code: "Logging done"}, nil
 }
