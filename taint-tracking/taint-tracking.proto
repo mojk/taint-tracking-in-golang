@@ -1,0 +1,44 @@
+/*
+ *
+ */
+ syntax = "proto3";
+ option java_multiple_files = true;
+ option java_package = "io.taint-tracking";
+ package tainttracking;
+ 
+ service Drive {
+     //rpc call for returning the current velocity
+     rpc getVelocity(VelocityRequest) returns (VelocityReply) {}
+
+     //rpc call for increasing the velocity
+     rpc IncVelocity(IncVelocityRequest) returns (IncVelocityReply) {}
+
+     //rpc call for decreasing the velocity
+     rpc DecVelocity(DecVelocityRequest) returns (DecVelocityReply) {}
+ }
+ 
+message VelocityRequest {
+    string req = 1;
+}
+
+message VelocityReply {
+    int32 velocity = 1;
+}
+
+message IncVelocityRequest {
+    int32 inc = 1;
+}
+
+message IncVelocityReply {
+    bool return_code = 1;
+    int32 new_velocity = 2;
+}
+
+message DecVelocityRequest {
+    int32 dec = 1;
+}
+
+message DecVelocityReply {
+    bool return_code = 1;
+    int32 new_velocity = 2;
+}
