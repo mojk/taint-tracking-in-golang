@@ -1,12 +1,11 @@
 package main
 
 import (
-	"fmt"
+	"../api"
 	"context"
+	"google.golang.org/grpc"
 	"log"
 	"net"
-	"google.golang.org/grpc"
-	"../api"
 )
 
 type Server struct{}
@@ -21,14 +20,21 @@ func main() {
 
 	grpcServer := grpc.NewServer()
 
-	api.RegisterPingServer(grpcServer, &s)
+	api.RegisterAddServer(grpcServer, &s)
 
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatal("Error")
 	}
 }
 
-func (s *Server) SayHello(ctx context.Context, in *api.PingMessage) (*api.PingMessage, error) {
-	fmt.Printf("Received message: %s", in.Greeting)
-	return &api.PingMessage{Greeting: "Hi there"}, nil
+func (s *Server) AddNumbers(ctx context.Context, in *api.Request) (*api.Response, error) {
+	// log.Printf("Received message: %s", in.Greeting)
+	res := calculate(in.A, in.B)
+
+	log.Printf("Calculate: %d", res)
+	return &api.Response{Result: res}, nil
+}
+
+func calculate(a, b int32) int32 {
+	return a + b
 }

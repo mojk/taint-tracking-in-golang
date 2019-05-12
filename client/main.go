@@ -1,42 +1,44 @@
 package main
 
 import (
-  "log"
-  "../api"
-  "context"
-  "google.golang.org/grpc"
-  "bufio"
-  "fmt"
-  "os"
+	"../api"
+	"context"
+	"fmt"
+	"google.golang.org/grpc"
+	"log"
 )
 
 func main() {
 
-    reader := bufio.NewReader(os.Stdin)
-    var conn *grpc.ClientConn
+	var conn *grpc.ClientConn
 
-    conn, err := grpc.Dial(":7777", grpc.WithInsecure())
+	conn, err := grpc.Dial(":7777", grpc.WithInsecure())
 
-    if err != nil {
-        log.Fatalf("did not connect: %s", err)
-    }
+	if err != nil {
+		log.Fatalf("did not connect: %s", err)
+	}
 
-    defer conn.Close()
+	defer conn.Close()
 
-    c := api.NewPingClient(conn)
+	c := api.NewAddClient(conn)
 
-    for {
-        fmt.Printf("Enter your message: ")
+	for {
+		var first, second int32
 
-        data, _ := reader.ReadString('\n')
+		fmt.Printf("First: ")
+		fmt.Scanf("%d", &first)
 
-        response, err := c.SayHello(context.Background(), &api.PingMessage{Greeting: data})
+		fmt.Printf("Second: ")
+		fmt.Scanf("%d", &second)
 
-        if err != nil {
-            log.Fatalf("Error when calling SayHello: %s", err)
-        }
+		//response, err := c.SayHello(context.Background(), &api.Request{A: first, B: second})
+		c.AddNumbers(context.Background(), &api.Request{A: first, B: second})
 
-        fmt.Printf("Response from server: %s\n", response.Greeting)
-    }
+		if err != nil {
+			log.Fatalf("Error when calling SayHello: %s", err)
+		}
+
+		//fmt.Printf("The sum of %d and %d are %d\n", first, second, response.Result)
+	}
 
 }
