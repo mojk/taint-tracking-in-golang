@@ -26,14 +26,14 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 	
-	/* Gets the current Velocity */
-	rpc_getV, err := c.GetVelocity(ctx, &pb.VelocityRequest{Req: "test"})
+	/* recieves the current velocity */
+	rpc_getV, err := c.GetVelocity(ctx, &pb.VelocityRequest{Req: "Simple request"})
 	if err != nil {
 		log.Fatalf("Could not increase the velocity: %v", err)
 	}
 	log.Printf("Current velocity is ", rpc_getV.Velocity)
 
-	/* Increases the Velocity*/
+	/* increases the velocity */
 	rpc_incV, err := c.IncVelocity(ctx, &pb.IncVelocityRequest{Inc: 10})
 	if err != nil {
 		log.Fatalf("Could not increase the velocity: %v", err)

@@ -19,26 +19,32 @@
  
 message VelocityRequest {
     string req = 1;
+    bool log = 2;
 }
 
 message VelocityReply {
     int32 velocity = 1;
+    bool log = 2;
 }
 
 message IncVelocityRequest {
     int32 inc = 1;
+    bool log = 2;
 }
 
 message IncVelocityReply {
     bool return_code = 1;
     int32 new_velocity = 2;
+    bool log = 3;
 }
 
 message DecVelocityRequest {
     int32 dec = 1;
+    bool log = 2;
 }
 
 message DecVelocityReply {
     bool return_code = 1;
     int32 new_velocity = 2;
+    bool log = 3;
 }
