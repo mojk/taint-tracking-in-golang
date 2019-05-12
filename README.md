@@ -11,7 +11,9 @@ Every action that coming form the log-service should be marked as tainted, and s
     protoc -I taint-tracking/ taint-tracking-in-golang/taint-tracking.proto --go_out=plugins=grpc:taint-tracking-in-golang
 ### Compiling Go files
     go build
-    
+
+### Architecture
+![alt text](https://i.imgur.com/BE5K0M4.jpg)
 ### USEFUL STUFF
 # Proposal / Project Idea
 - Written by Per Hallgren @ Einride
