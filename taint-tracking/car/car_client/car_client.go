@@ -24,4 +24,13 @@ func main() {
 		log.Fatalf("did not connect: %v",err)
 	}
 	
+	name := defaultName
+	if len(os.Args) > 1 {
+		name = os.Args[1]
+	}
+	ctx, cancel := context.WithTimeout(context.Background()), time.Second)
+	defer.cancel()
+
+	/* rpc call */
+	r, err1
 }
