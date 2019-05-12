@@ -24,8 +24,95 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
+type LogRequest struct {
+	Info                 string   `protobuf:"bytes,1,opt,name=info,proto3" json:"info,omitempty"`
+	Code                 bool     `protobuf:"varint,2,opt,name=code,proto3" json:"code,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LogRequest) Reset()         { *m = LogRequest{} }
+func (m *LogRequest) String() string { return proto.CompactTextString(m) }
+func (*LogRequest) ProtoMessage()    {}
+func (*LogRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c38093ad258e0ed0, []int{0}
+}
+
+func (m *LogRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LogRequest.Unmarshal(m, b)
+}
+func (m *LogRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LogRequest.Marshal(b, m, deterministic)
+}
+func (m *LogRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LogRequest.Merge(m, src)
+}
+func (m *LogRequest) XXX_Size() int {
+	return xxx_messageInfo_LogRequest.Size(m)
+}
+func (m *LogRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LogRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LogRequest proto.InternalMessageInfo
+
+func (m *LogRequest) GetInfo() string {
+	if m != nil {
+		return m.Info
+	}
+	return ""
+}
+
+func (m *LogRequest) GetCode() bool {
+	if m != nil {
+		return m.Code
+	}
+	return false
+}
+
+type LogReply struct {
+	Code                 string   `protobuf:"bytes,1,opt,name=code,proto3" json:"code,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LogReply) Reset()         { *m = LogReply{} }
+func (m *LogReply) String() string { return proto.CompactTextString(m) }
+func (*LogReply) ProtoMessage()    {}
+func (*LogReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c38093ad258e0ed0, []int{1}
+}
+
+func (m *LogReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LogReply.Unmarshal(m, b)
+}
+func (m *LogReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LogReply.Marshal(b, m, deterministic)
+}
+func (m *LogReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LogReply.Merge(m, src)
+}
+func (m *LogReply) XXX_Size() int {
+	return xxx_messageInfo_LogReply.Size(m)
+}
+func (m *LogReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_LogReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LogReply proto.InternalMessageInfo
+
+func (m *LogReply) GetCode() string {
+	if m != nil {
+		return m.Code
+	}
+	return ""
+}
+
 type VelocityRequest struct {
 	Req                  string   `protobuf:"bytes,1,opt,name=req,proto3" json:"req,omitempty"`
+	Log                  bool     `protobuf:"varint,2,opt,name=log,proto3" json:"log,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -35,7 +122,7 @@ func (m *VelocityRequest) Reset()         { *m = VelocityRequest{} }
 func (m *VelocityRequest) String() string { return proto.CompactTextString(m) }
 func (*VelocityRequest) ProtoMessage()    {}
 func (*VelocityRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c38093ad258e0ed0, []int{0}
+	return fileDescriptor_c38093ad258e0ed0, []int{2}
 }
 
 func (m *VelocityRequest) XXX_Unmarshal(b []byte) error {
@@ -63,8 +150,16 @@ func (m *VelocityRequest) GetReq() string {
 	return ""
 }
 
+func (m *VelocityRequest) GetLog() bool {
+	if m != nil {
+		return m.Log
+	}
+	return false
+}
+
 type VelocityReply struct {
 	Velocity             int32    `protobuf:"varint,1,opt,name=velocity,proto3" json:"velocity,omitempty"`
+	Log                  bool     `protobuf:"varint,2,opt,name=log,proto3" json:"log,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -74,7 +169,7 @@ func (m *VelocityReply) Reset()         { *m = VelocityReply{} }
 func (m *VelocityReply) String() string { return proto.CompactTextString(m) }
 func (*VelocityReply) ProtoMessage()    {}
 func (*VelocityReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c38093ad258e0ed0, []int{1}
+	return fileDescriptor_c38093ad258e0ed0, []int{3}
 }
 
 func (m *VelocityReply) XXX_Unmarshal(b []byte) error {
@@ -102,8 +197,16 @@ func (m *VelocityReply) GetVelocity() int32 {
 	return 0
 }
 
+func (m *VelocityReply) GetLog() bool {
+	if m != nil {
+		return m.Log
+	}
+	return false
+}
+
 type IncVelocityRequest struct {
 	Inc                  int32    `protobuf:"varint,1,opt,name=inc,proto3" json:"inc,omitempty"`
+	Log                  bool     `protobuf:"varint,2,opt,name=log,proto3" json:"log,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -113,7 +216,7 @@ func (m *IncVelocityRequest) Reset()         { *m = IncVelocityRequest{} }
 func (m *IncVelocityRequest) String() string { return proto.CompactTextString(m) }
 func (*IncVelocityRequest) ProtoMessage()    {}
 func (*IncVelocityRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c38093ad258e0ed0, []int{2}
+	return fileDescriptor_c38093ad258e0ed0, []int{4}
 }
 
 func (m *IncVelocityRequest) XXX_Unmarshal(b []byte) error {
@@ -141,9 +244,17 @@ func (m *IncVelocityRequest) GetInc() int32 {
 	return 0
 }
 
+func (m *IncVelocityRequest) GetLog() bool {
+	if m != nil {
+		return m.Log
+	}
+	return false
+}
+
 type IncVelocityReply struct {
 	ReturnCode           bool     `protobuf:"varint,1,opt,name=return_code,json=returnCode,proto3" json:"return_code,omitempty"`
 	NewVelocity          int32    `protobuf:"varint,2,opt,name=new_velocity,json=newVelocity,proto3" json:"new_velocity,omitempty"`
+	Log                  bool     `protobuf:"varint,3,opt,name=log,proto3" json:"log,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -153,7 +264,7 @@ func (m *IncVelocityReply) Reset()         { *m = IncVelocityReply{} }
 func (m *IncVelocityReply) String() string { return proto.CompactTextString(m) }
 func (*IncVelocityReply) ProtoMessage()    {}
 func (*IncVelocityReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c38093ad258e0ed0, []int{3}
+	return fileDescriptor_c38093ad258e0ed0, []int{5}
 }
 
 func (m *IncVelocityReply) XXX_Unmarshal(b []byte) error {
@@ -188,8 +299,16 @@ func (m *IncVelocityReply) GetNewVelocity() int32 {
 	return 0
 }
 
+func (m *IncVelocityReply) GetLog() bool {
+	if m != nil {
+		return m.Log
+	}
+	return false
+}
+
 type DecVelocityRequest struct {
 	Dec                  int32    `protobuf:"varint,1,opt,name=dec,proto3" json:"dec,omitempty"`
+	Log                  bool     `protobuf:"varint,2,opt,name=log,proto3" json:"log,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -199,7 +318,7 @@ func (m *DecVelocityRequest) Reset()         { *m = DecVelocityRequest{} }
 func (m *DecVelocityRequest) String() string { return proto.CompactTextString(m) }
 func (*DecVelocityRequest) ProtoMessage()    {}
 func (*DecVelocityRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c38093ad258e0ed0, []int{4}
+	return fileDescriptor_c38093ad258e0ed0, []int{6}
 }
 
 func (m *DecVelocityRequest) XXX_Unmarshal(b []byte) error {
@@ -227,9 +346,17 @@ func (m *DecVelocityRequest) GetDec() int32 {
 	return 0
 }
 
+func (m *DecVelocityRequest) GetLog() bool {
+	if m != nil {
+		return m.Log
+	}
+	return false
+}
+
 type DecVelocityReply struct {
 	ReturnCode           bool     `protobuf:"varint,1,opt,name=return_code,json=returnCode,proto3" json:"return_code,omitempty"`
 	NewVelocity          int32    `protobuf:"varint,2,opt,name=new_velocity,json=newVelocity,proto3" json:"new_velocity,omitempty"`
+	Log                  bool     `protobuf:"varint,3,opt,name=log,proto3" json:"log,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
@@ -239,7 +366,7 @@ func (m *DecVelocityReply) Reset()         { *m = DecVelocityReply{} }
 func (m *DecVelocityReply) String() string { return proto.CompactTextString(m) }
 func (*DecVelocityReply) ProtoMessage()    {}
 func (*DecVelocityReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_c38093ad258e0ed0, []int{5}
+	return fileDescriptor_c38093ad258e0ed0, []int{7}
 }
 
 func (m *DecVelocityReply) XXX_Unmarshal(b []byte) error {
@@ -274,7 +401,16 @@ func (m *DecVelocityReply) GetNewVelocity() int32 {
 	return 0
 }
 
+func (m *DecVelocityReply) GetLog() bool {
+	if m != nil {
+		return m.Log
+	}
+	return false
+}
+
 func init() {
+	proto.RegisterType((*LogRequest)(nil), "tainttracking.LogRequest")
+	proto.RegisterType((*LogReply)(nil), "tainttracking.LogReply")
 	proto.RegisterType((*VelocityRequest)(nil), "tainttracking.VelocityRequest")
 	proto.RegisterType((*VelocityReply)(nil), "tainttracking.VelocityReply")
 	proto.RegisterType((*IncVelocityRequest)(nil), "tainttracking.IncVelocityRequest")
@@ -288,25 +424,30 @@ func init() {
 }
 
 var fileDescriptor_c38093ad258e0ed0 = []byte{
-	// 282 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x92, 0x41, 0x4b, 0xc3, 0x40,
-	0x10, 0x85, 0x9b, 0x4a, 0xa5, 0x4e, 0x2c, 0xd6, 0x01, 0x41, 0x82, 0x58, 0xbb, 0x05, 0x11, 0xc4,
-	0x08, 0xfa, 0x0f, 0xb4, 0x17, 0x0f, 0x82, 0x44, 0xc8, 0xb5, 0xd4, 0xcd, 0x50, 0x16, 0xc3, 0x6e,
-	0xba, 0x6e, 0x5b, 0x72, 0xf3, 0xa7, 0x4b, 0xd6, 0x36, 0x66, 0x93, 0xe8, 0xc9, 0xdb, 0xce, 0x9b,
-	0x8f, 0xf7, 0x96, 0xc7, 0xc0, 0xc4, 0xcc, 0x85, 0x34, 0x37, 0x46, 0xcf, 0xf9, 0xbb, 0x90, 0x8b,
-	0x5b, 0x77, 0x0c, 0x33, 0xad, 0x8c, 0xc2, 0x81, 0x55, 0x77, 0x22, 0x9b, 0xc0, 0x51, 0x4c, 0xa9,
-	0xe2, 0xc2, 0xe4, 0x11, 0x2d, 0x57, 0xf4, 0x61, 0x70, 0x08, 0x7b, 0x9a, 0x96, 0xa7, 0xde, 0x85,
-	0x77, 0x75, 0x10, 0x15, 0x4f, 0x76, 0x0d, 0x83, 0x1f, 0x28, 0x4b, 0x73, 0x0c, 0xa0, 0xbf, 0xde,
-	0x0a, 0x96, 0xeb, 0x45, 0xe5, 0xcc, 0x2e, 0x01, 0x9f, 0x24, 0x6f, 0x31, 0x15, 0x92, 0x6f, 0xe1,
-	0xe2, 0xc9, 0x62, 0x18, 0x3a, 0x5c, 0xe1, 0x3b, 0x02, 0x5f, 0x93, 0x59, 0x69, 0x39, 0xe3, 0x2a,
-	0x21, 0x4b, 0xf7, 0x23, 0xf8, 0x96, 0x1e, 0x55, 0x42, 0x38, 0x86, 0x43, 0x49, 0x9b, 0x59, 0x19,
-	0xde, 0xb5, 0x7e, 0xbe, 0xa4, 0x4d, 0x5c, 0xc9, 0x9f, 0x52, 0x5b, 0x7e, 0x42, 0x65, 0x7e, 0x42,
-	0x36, 0xdf, 0xe1, 0xfe, 0x29, 0xff, 0xee, 0xb3, 0x0b, 0xbd, 0xa9, 0x16, 0x6b, 0xc2, 0x67, 0xf0,
-	0x17, 0x64, 0x76, 0x0b, 0x3c, 0x0f, 0x9d, 0xea, 0xc3, 0xda, 0x17, 0x83, 0xb3, 0x5f, 0xf7, 0x59,
-	0x9a, 0xb3, 0x0e, 0xbe, 0x82, 0x5f, 0x29, 0x0c, 0xc7, 0x35, 0xbc, 0x59, 0x7a, 0x30, 0xfa, 0x0b,
-	0x29, 0x4d, 0x2b, 0x2d, 0x34, 0x4c, 0x9b, 0x4d, 0x36, 0x4c, 0xeb, 0x25, 0xb2, 0xce, 0xc3, 0x09,
-	0x1c, 0x0b, 0x15, 0xba, 0xe7, 0xf7, 0xe2, 0xbd, 0xed, 0xdb, 0x0b, 0xbc, 0xff, 0x0a, 0x00, 0x00,
-	0xff, 0xff, 0x5c, 0x38, 0x0b, 0x95, 0xa8, 0x02, 0x00, 0x00,
+	// 365 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x53, 0x4d, 0x4f, 0xea, 0x40,
+	0x14, 0xa5, 0xf0, 0x78, 0x29, 0xb7, 0x8f, 0x3c, 0xde, 0x24, 0x2f, 0x62, 0x63, 0xf8, 0xa8, 0x1b,
+	0x36, 0xd6, 0x04, 0x35, 0x71, 0xe3, 0x02, 0x25, 0x51, 0x13, 0x4c, 0x4c, 0x4d, 0xd8, 0x12, 0x6c,
+	0xaf, 0x75, 0x62, 0x33, 0x03, 0x75, 0x80, 0xb0, 0xf3, 0xa7, 0x9b, 0x19, 0xcb, 0x40, 0x3f, 0x70,
+	0xe7, 0xee, 0xcc, 0xb9, 0xf7, 0x9c, 0x39, 0x73, 0xdb, 0x0b, 0xc7, 0x62, 0x4a, 0x99, 0x38, 0x11,
+	0xf1, 0xd4, 0x7f, 0xa3, 0x2c, 0x3c, 0x4d, 0x1f, 0xdd, 0x59, 0xcc, 0x05, 0x27, 0x75, 0xc5, 0x6e,
+	0x48, 0xe7, 0x1c, 0x60, 0xc4, 0x43, 0x0f, 0xe7, 0x0b, 0x7c, 0x17, 0x84, 0xc0, 0x2f, 0xca, 0x5e,
+	0x78, 0xd3, 0xe8, 0x18, 0xbd, 0x9a, 0xa7, 0xb0, 0xe4, 0x7c, 0x1e, 0x60, 0xb3, 0xdc, 0x31, 0x7a,
+	0xa6, 0xa7, 0xb0, 0xd3, 0x02, 0x53, 0xa9, 0x66, 0xd1, 0x5a, 0xd7, 0x13, 0x8d, 0xaa, 0x5f, 0xc0,
+	0xdf, 0x31, 0x46, 0xdc, 0xa7, 0x62, 0xbd, 0xb1, 0x6e, 0x40, 0x25, 0xc6, 0x79, 0xd2, 0x25, 0xa1,
+	0x64, 0x22, 0x1e, 0x26, 0xbe, 0x12, 0x3a, 0x57, 0x50, 0xdf, 0xca, 0xa4, 0xb7, 0x0d, 0xe6, 0x32,
+	0x21, 0x94, 0xb2, 0xea, 0xe9, 0x73, 0x81, 0xfc, 0x12, 0xc8, 0x3d, 0xf3, 0x0b, 0x2e, 0xa6, 0xcc,
+	0x4f, 0xe4, 0x12, 0x16, 0x28, 0x5f, 0xa1, 0x91, 0x52, 0xca, 0xbb, 0xdb, 0x60, 0xc5, 0x28, 0x16,
+	0x31, 0x9b, 0xe8, 0xe7, 0x99, 0x1e, 0x7c, 0x51, 0x37, 0x3c, 0x40, 0xd2, 0x85, 0x3f, 0x0c, 0x57,
+	0x13, 0x1d, 0xb0, 0xac, 0x6e, 0xb0, 0x18, 0xae, 0xc6, 0x99, 0x8c, 0x95, 0x54, 0xc6, 0x21, 0x16,
+	0x65, 0x0c, 0x50, 0x67, 0x0c, 0x70, 0x4f, 0xc6, 0x94, 0xf2, 0xc7, 0x32, 0xf6, 0x3f, 0xca, 0x50,
+	0x1d, 0xc6, 0x74, 0x89, 0xe4, 0x01, 0xac, 0x5b, 0x14, 0xba, 0xb5, 0xe5, 0xa6, 0x7e, 0x1e, 0x37,
+	0xf3, 0x0c, 0xfb, 0x68, 0x6f, 0x7d, 0x16, 0xad, 0x9d, 0x12, 0x79, 0x02, 0x6b, 0x67, 0xcc, 0xa4,
+	0x9b, 0x69, 0xcf, 0x7f, 0x3c, 0xbb, 0xfd, 0x5d, 0x8b, 0x36, 0xdd, 0x99, 0x4b, 0xce, 0x34, 0x3f,
+	0xed, 0x9c, 0x69, 0x76, 0xac, 0x4e, 0xa9, 0x7f, 0x07, 0x95, 0x11, 0x0f, 0xc9, 0x00, 0x6a, 0x11,
+	0x0f, 0x07, 0xbe, 0xa0, 0x9c, 0x91, 0xc3, 0x8c, 0x6c, 0xbb, 0x37, 0xf6, 0x41, 0x51, 0x49, 0x39,
+	0x5d, 0xff, 0x87, 0x7f, 0x94, 0xbb, 0xe9, 0x55, 0x7c, 0x34, 0x9e, 0x7f, 0xab, 0x6d, 0x3c, 0xfb,
+	0x0c, 0x00, 0x00, 0xff, 0xff, 0x0e, 0x90, 0x18, 0xc6, 0xb4, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -339,7 +480,7 @@ func NewDriveClient(cc *grpc.ClientConn) DriveClient {
 
 func (c *driveClient) GetVelocity(ctx context.Context, in *VelocityRequest, opts ...grpc.CallOption) (*VelocityReply, error) {
 	out := new(VelocityReply)
-	err := c.cc.Invoke(ctx, "/tainttracking.Drive/getVelocity", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/tainttracking.Drive/GetVelocity", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -451,7 +592,7 @@ var _Drive_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*DriveServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "getVelocity",
+			MethodName: "GetVelocity",
 			Handler:    _Drive_GetVelocity_Handler,
 		},
 		{
@@ -461,6 +602,80 @@ var _Drive_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DecVelocity",
 			Handler:    _Drive_DecVelocity_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "taint-tracking/taint-tracking.proto",
+}
+
+// LogClient is the client API for Log service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type LogClient interface {
+	//rpc call for logginng info
+	LogAction(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*LogReply, error)
+}
+
+type logClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewLogClient(cc *grpc.ClientConn) LogClient {
+	return &logClient{cc}
+}
+
+func (c *logClient) LogAction(ctx context.Context, in *LogRequest, opts ...grpc.CallOption) (*LogReply, error) {
+	out := new(LogReply)
+	err := c.cc.Invoke(ctx, "/tainttracking.Log/logAction", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// LogServer is the server API for Log service.
+type LogServer interface {
+	//rpc call for logginng info
+	LogAction(context.Context, *LogRequest) (*LogReply, error)
+}
+
+// UnimplementedLogServer can be embedded to have forward compatible implementations.
+type UnimplementedLogServer struct {
+}
+
+func (*UnimplementedLogServer) LogAction(ctx context.Context, req *LogRequest) (*LogReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LogAction not implemented")
+}
+
+func RegisterLogServer(s *grpc.Server, srv LogServer) {
+	s.RegisterService(&_Log_serviceDesc, srv)
+}
+
+func _Log_LogAction_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(LogRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LogServer).LogAction(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tainttracking.Log/LogAction",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LogServer).LogAction(ctx, req.(*LogRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Log_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "tainttracking.Log",
+	HandlerType: (*LogServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "logAction",
+			Handler:    _Log_LogAction_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

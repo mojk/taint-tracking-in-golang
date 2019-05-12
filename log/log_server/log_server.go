@@ -11,19 +11,15 @@ import (
 )
 
 const (
-	port = ":50052"
+	port = ":50051"
 )
 
 type server struct{}
 
-func (s *server) GetVelocity() {
+/* server will handle logrequests*/
 
-}
-func (s *server) IncVelocity() {
-
-}
-func (s *server) DecVelocity() {
-
+func (s *server) LogAction(ctx context.Context, in *pb.LogRequest) (*pb.LogReply, error) {
+	return &pb.LogReply{Code: "Logging done"}, nil
 }
 
 func main() {
@@ -34,7 +30,7 @@ func main() {
 		log.Fatalf("failed to listen to port: %v", err)
 	}
 	s := grpc.NewServer()
-	pb.RegisterDriveServer(s, &server{})
+	pb.RegisterLogServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed to serve:%v", err)
 	}

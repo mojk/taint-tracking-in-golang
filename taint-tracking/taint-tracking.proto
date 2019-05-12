@@ -8,7 +8,7 @@
  
  service Drive {
      //rpc call for returning the current velocity
-     rpc getVelocity(VelocityRequest) returns (VelocityReply) {}
+     rpc GetVelocity(VelocityRequest) returns (VelocityReply) {}
 
      //rpc call for increasing the velocity
      rpc IncVelocity(IncVelocityRequest) returns (IncVelocityReply) {}
@@ -17,6 +17,20 @@
      rpc DecVelocity(DecVelocityRequest) returns (DecVelocityReply) {}
  }
  
+ service Log {
+     //rpc call for logginng info
+    rpc logAction(LogRequest) returns (LogReply) {}
+ }
+
+message LogRequest {
+    string info = 1;
+    bool code = 2;
+}
+
+message LogReply {
+    string code = 1;
+}
+
 message VelocityRequest {
     string req = 1;
     bool log = 2;
