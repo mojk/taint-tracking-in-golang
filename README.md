@@ -1,5 +1,10 @@
 ### Taint tracking in Golang
-Project done in the Language-based Security course at Chalmers University of Technology. This is a dummy project for trying to implement Taint-tracking for Microservices written in Golang. We use the GRPC-toolchain to try to simulate an autonomous car. Remote-procedure calls will be issued to the car for increasing and decreasing the velocity of the moving car. There exists an service used for logging different types of actions that the car has been made, and thus if you want to filter what is being logged, an additional flow is inserted. Every action that coming form the log-service should be marked as tainted, and should not be able to reach the sinks.
+Project done in the Language-based Security course at Chalmers University of Technology.  
+This is a dummy project for trying to implement Taint-tracking for Microservices written in Golang. We use the GRPC-toolchain to try to simulate an autonomous car. 
+
+Remote-procedure calls will be issued to the car for increasing and decreasing the velocity of the moving car. There exists an service used for logging different types of actions that the car has been made, and thus if you want to filter what is being logged, an additional flow is inserted. 
+
+Every action that coming form the log-service should be marked as tainted, and should not be able to reach the sinks.
 ### Path
     $GOPATH/src/taint-tracking-in-golang
 ### Updating the protocol buffers 
