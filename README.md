@@ -1,7 +1,7 @@
 # Taint tracking in Golang
-
-### Updating the protocol buffers
-    protoc -I taint-tracking/ taint-tracking/taint-tracking.proto --go_out=plugins=grpc:taint-tracking 
+    The path should be $GOPATH/src/taint-tracking-in-golang for this to work, the grpc librarie is included aswell but should perhaps not be ¯\_(ツ)_/¯
+### Updating the protocol buffers 
+    protoc -I taint-tracking/ taint-tracking-in-golang/taint-tracking.proto --go_out=plugins=grpc:taint-tracking-in-golang
 ### Compiling Go files
     go build
 
