@@ -1,4 +1,10 @@
 # Taint tracking in Golang
+
+### Updating the protocol buffers
+    protoc -I taint-tracking/ taint-tracking/taint-tracking.proto --go_out=plugins=grpc:taint-tracking 
+### Compiling Go files
+    go build
+
 Project for the Language-Based Security Course.
 # Proposal / Project Idea
 - Written by Per Hallgren @ Einride
