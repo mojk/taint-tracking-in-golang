@@ -4,17 +4,19 @@ This is a dummy project for trying to implement Taint-tracking for Microservices
 
 Remote-procedure calls will be issued to the car for increasing and decreasing the velocity of the moving car. There exists an service used for logging different types of actions that the car has been made, and thus if you want to filter what is being logged, an additional flow is inserted. 
 
-Every action that coming form the log-service should be marked as tainted, and should not be able to reach the sinks.
+Every action that coming from the log-service should be marked as tainted, and should not be able to reach the sinks. Test-cases is to try to inject rpc-calls or something that will make the car issue stuff like interpret "filter-input" as "increase velocity", and then try to prevent it by using the principles of taint tracking.
 ### Path
+Setting the path correctly is quite important, do the following:
+
     $GOPATH/src/taint-tracking-in-golang
 ### Updating the protocol buffers 
     protoc -I taint-tracking/ taint-tracking-in-golang/taint-tracking.proto --go_out=plugins=grpc:taint-tracking-in-golang
 ### Compiling Go files
     go build
 
-### Architecture
+### Architecture of the system
 ![alt text](https://i.imgur.com/BE5K0M4.jpg)
-# USEFUL STUFF
+# Useful links
 ### Proposal / Project Idea
 - Written by Per Hallgren @ Einride
 https://docs.google.com/document/d/1FiiFnHUEg-CaLzTe8mgLnbbiA1u6iNjulv9qPpXE500/edit
