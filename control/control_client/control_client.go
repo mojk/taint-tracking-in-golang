@@ -17,28 +17,21 @@ import (
 )
 const (
 	address = "localhost:50051"
-	address2 = "localhost:50052"
 )
 
 func main() {
 	fmt.Println("Starting up the control_client..")
 
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	conn2, err := grpc.Dial("localhost:50052", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect, v%", err)
 	}
 	defer conn.Close()
-
-	
-	conn2, err := grpc.Dial(address2, grpc.WithInsecure())
-	if err != nil {
-		log.Fatalf("did not connect, v%", err)
-	}
 	defer conn2.Close()
 
 	/* connection for the driveclient */
 	c := pb.NewDriveClient(conn)
-
 	/* connection for the logclient */
 	c2 := pb.NewLogClient(conn2)
 
@@ -53,8 +46,7 @@ func main() {
 	log.Printf("Current velocity is ", rpc_getV.Velocity)
 
 	//TODO
-	//Send a request to the log server
-	rpc_log, err := c2.LogAction(ctx, &pb.LogRequest{Info: "Issued GetVelocity()", Code: true})
+	rpc_log, err := c2.LogAction(ctx, &pb.LogRequest{Info: "Issued GetVelocity()"})
 	if err != nil {
 		log.Fatalf("Could not send info to the logging server: %v",err)
 	}
