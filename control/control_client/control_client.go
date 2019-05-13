@@ -11,48 +11,58 @@ import (
 	"log"
 	"fmt"
 	"time"
+//	"reflect"
+
 	"google.golang.org/grpc"
 	pb "taint-tracking-in-golang/taint-tracking"
 
 )
+/* addresses and the ports used for communicating with the services */
 const (
-	address = "localhost:50051"
+	address_car = "localhost:50051"
+	address_log = "localhost:50052"
 )
+
+// this func will log the event performed in the form of a remote procedure call
+func log_event(information string, client pb.LogClient, ctx context.Context) {
+
+	rpc_log, err := client.LogAction(ctx, &pb.LogRequest{Info: information})
+	if err != nil {
+		log.Fatalf("Could not send info to the logging server: %v",err)
+	}
+	log.Printf("Sucessful? %v", rpc_log.Code)
+}
 
 func main() {
 	fmt.Println("Starting up the control_client..")
 
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
-	conn2, err := grpc.Dial("localhost:50052", grpc.WithInsecure())
+	/* Setting up two connections for two different ports */
+	conn_car, err := grpc.Dial(address_car, grpc.WithInsecure())
+	conn_log, err := grpc.Dial(address_log, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect, v%", err)
 	}
-	defer conn.Close()
-	defer conn2.Close()
+	defer conn_car.Close()
+	defer conn_log.Close()
 
-	/* connection for the driveclient */
-	c := pb.NewDriveClient(conn)
-	/* connection for the logclient */
-	c2 := pb.NewLogClient(conn2)
+	/* Creating the clients for respective services */
+	c := pb.NewDriveClient(conn_car)
+	c2 := pb.NewLogClient(conn_log)
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()
-	
-	/* recieves the current velocity */
+	defer cancel()	
+
+	/*** RPC CALL ***/
 	rpc_getV, err := c.GetVelocity(ctx, &pb.VelocityRequest{Req: "Simple request"})
 	if err != nil {
 		log.Fatalf("Could not increase the velocity: %v", err)
 	}
-	log.Printf("Current velocity is ", rpc_getV.Velocity)
-
-	//TODO
-	rpc_log, err := c2.LogAction(ctx, &pb.LogRequest{Info: "Issued GetVelocity()"})
-	if err != nil {
-		log.Fatalf("Could not send info to the logging server: %v",err)
+	if (rpc_getV.Log == true) { //If the request was succesful I think?
+		log_event("GetVelocity()", c2, ctx)
+		log.Printf("Current velocity is %v", rpc_getV.Velocity)
 	}
-	log.Printf("test", rpc_log.Code)
 
-	/* increases the velocity */
+	/*** RPC CALL ***/
 	rpc_incV, err := c.IncVelocity(ctx, &pb.IncVelocityRequest{Inc: 10})
 	if err != nil {
 		log.Fatalf("Could not increase the velocity: %v", err)
@@ -60,9 +70,7 @@ func main() {
 	if rpc_incV.ReturnCode == false {
 		log.Printf("Could not increase the velocity")
 	} else {
-		log.Printf("Increasing the Velocity, response from car %v", rpc_incV.NewVelocity)
-	}
-
-	
+		log_event("IncVelocity()", c2, ctx)
+		log.Printf("Increasing the velocity, current velocity = %v", rpc_incV.NewVelocity)
+	}	
 }
-
