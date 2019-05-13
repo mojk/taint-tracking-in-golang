@@ -2,8 +2,7 @@ package main
 
 /* Controls for the car
  * For every rpc-call it makes, it should send it also to the log server
- * TODO Send requests to the logserver
- * TODO
+ * TODO Send requests to the logserver - DONE (separate func)
  */
 
 import (
