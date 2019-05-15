@@ -35,7 +35,7 @@ This function will send a string to the log_server who in turn will display ever
 */
 
 func log_event(information string, client pb.LogClient, ctx context.Context) {
-
+	fmt.Println("Sending info to the logging server")
 	rpc_log, err := client.LogAction(ctx, &pb.LogRequest{Info: information})
 	if err != nil {
 		log.Fatalf("Could not send info to the logging server: %v",err)
@@ -75,9 +75,6 @@ func filter_event(client pb.FilterClient, ctx context.Context) {
 			filter_get = true
 		}
 	}
-	
-	//TODO check the values and set the filteroptions
-
 }
 
 func main() {
@@ -106,17 +103,17 @@ func main() {
 	filter_event(c3, ctx);
 
 
-	/*** RPC CALL ***/
+	/*** RPC CALL - Get the velocity ***/
 	rpc_getV, err := c.GetVelocity(ctx, &pb.VelocityRequest{Req: "Simple request"})
 	if err != nil {
 		log.Fatalf("Could not increase the velocity: %v", err)
 	}
-	if (rpc_getV.Log == true) { //If the request was succesful I think?
-		log_event("GetVelocity()", c2, ctx)
+	if (rpc_getV.Log == true) {
+		log_event("GetVelocity()", c2, ctx) // if successful, send info to the logging server
 		log.Printf("Current velocity is %v", rpc_getV.Velocity)
 	}
 
-	/*** RPC CALL ***/
+	/*** RPC CALL - Increasing the velocity ***/
 	rpc_incV, err := c.IncVelocity(ctx, &pb.IncVelocityRequest{Inc: 10})
 	if err != nil {
 		log.Fatalf("Could not increase the velocity: %v", err)
@@ -124,7 +121,7 @@ func main() {
 	if rpc_incV.ReturnCode == false {
 		log.Printf("Could not increase the velocity")
 	} else {
-		log_event("IncVelocity()", c2, ctx)
+		log_event("IncVelocity()", c2, ctx) // if successful, send info to the logging server
 		log.Printf("Increasing the velocity, current velocity = %v", rpc_incV.NewVelocity)
 	}	
 }

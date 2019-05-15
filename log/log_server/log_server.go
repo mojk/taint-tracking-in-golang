@@ -22,10 +22,7 @@ const (
 
 type server struct{}
 
-/* server will handle logrequests*/
-//TODO make the control-node send requests so it can log
-//TODO Saving it in a logfile with timestamps?
-
+/* control_client will issue this request */
 func (s *server) LogAction(ctx context.Context, in *pb.LogRequest) (*pb.LogReply, error) {
 	fmt.Println("New Log! " + in.Info)
 	return &pb.LogReply{Code: true}, nil

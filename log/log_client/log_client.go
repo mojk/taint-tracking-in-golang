@@ -19,7 +19,7 @@ const (
 func main() {
 	fmt.Println("Launching the log_client...")
 
-	/* Setting up the connection  */
+	/* setting up the connection  */
 	conn_control, err := grpc.Dial(address_control, grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("did not connect, %v", err)

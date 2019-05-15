@@ -27,6 +27,7 @@ var incVel bool
 var decVel bool
 
 type server struct {}
+
 /* control_client issues these request*/
 func (s *server) FilterQuestion(ctx context.Context, in *pb.FilterQuestionRequest) (*pb.FilterQuestionReply, error) {
 	return &pb.FilterQuestionReply{Action: true, Get: getVel, Inc: incVel, Dec: decVel}, nil
