@@ -10,7 +10,10 @@ Setting the path correctly is quite important, do the following:
 
     $GOPATH/src/taint-tracking-in-golang
 ### Updating the protocol buffers 
-    protoc -I taint-tracking/ taint-tracking-in-golang/taint-tracking.proto --go_out=plugins=grpc:taint-tracking-in-golang
+    $ protoc -I taint-tracking/ taint-tracking-in-golang/taint-tracking.proto --go_out=plugins=grpc:taint-tracking-in-golang
+### If the above does not work try this
+    $protoc -I taint-tracking/ taint-tracking/taint-tracking.proto --go_out=plugins=grpc:taint-tracking
+
 ### Compiling Go files
     go build
 
