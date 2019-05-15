@@ -22,12 +22,21 @@ import (
 const (
 	port = ":50053"
 )
-type server struct {}
+var getVel bool
+var incVel bool
+var decVel bool
 
+type server struct {}
+/* control_client issues these request*/
+func (s *server) FilterQuestion(ctx context.Context, in *pb.FilterQuestionRequest) (*pb.FilterQuestionReply, error) {
+	return &pb.FilterQuestionReply{Action: true, Get: getVel, Inc: incVel, Dec: decVel}, nil
+}
+/* log_client issues these requests*/
 func (s *server) FilterData(ctx context.Context, in *pb.FilterRequest) (*pb.FilterReply, error) {
-	getVel := true
-	incVel := true
-	decVel := true
+
+	getVel = true
+	incVel = true
+	decVel = true
 
 	if (in.GetVel == true) {
 		fmt.Println("Filtering out GetVelocity()")

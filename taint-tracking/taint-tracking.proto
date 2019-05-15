@@ -24,15 +24,18 @@
 
  service Filter {
     rpc filterData(FilterRequest) returns (FilterReply) {}
-    rpc filterQuestion(QuestionRequest) returns (QuestionReply) {}
+    rpc filterQuestion(FilterQuestionRequest) returns (FilterQuestionReply) {}
  }
 
-message QuestionRequest {
+message FilterQuestionRequest {
     bool action = 1;
 }
 
-message QuestionReply {
+message FilterQuestionReply {
     bool action = 1;
+    bool get = 2;
+    bool inc = 3;
+    bool dec = 4;
 }
 
 message FilterRequest {
