@@ -19,9 +19,11 @@ import (
 	pb "taint-tracking-in-golang/taint-tracking"
 
 )
+
 const (
 	port = ":50053"
 )
+
 var getVel bool
 var incVel bool
 var decVel bool
@@ -34,7 +36,7 @@ func (s *server) FilterQuestion(ctx context.Context, in *pb.FilterQuestionReques
 }
 /* log_client issues these requests*/
 func (s *server) FilterData(ctx context.Context, in *pb.FilterRequest) (*pb.FilterReply, error) {
-
+	//inital values
 	getVel = true
 	incVel = true
 	decVel = true

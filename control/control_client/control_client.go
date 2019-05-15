@@ -40,7 +40,12 @@ func log_event(information string, client pb.LogClient, ctx context.Context) {
 	if err != nil {
 		log.Fatalf("Could not send info to the logging server: %v",err)
 	}
-	log.Printf("Sucessful? %v", rpc_log.Code)
+	
+	if (rpc_log.Code) {
+		log.Printf("Sucessful! %v:", rpc_log.Code)		
+	} else {
+		log.Printf("Failure! %v:", rpc_log.Code)		
+	}
 }
 
 /* 
