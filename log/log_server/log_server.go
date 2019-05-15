@@ -1,5 +1,11 @@
 package main
 
+/* Service used for logging the actions of the controls 
+ *
+ * For every LogAction the service recieves, it will save and display the information
+ * it has recieved
+ */
+
 import (
 	"context"
 	"log"
@@ -7,11 +13,11 @@ import (
 	"fmt"
 
 	"google.golang.org/grpc"
-	pb "taint-tracking/taint-tracking"
+	pb "taint-tracking-in-golang/taint-tracking"
 )
 
 const (
-	port = ":50051"
+	port = ":50052"
 )
 
 type server struct{}
@@ -19,8 +25,10 @@ type server struct{}
 /* server will handle logrequests*/
 //TODO make the control-node send requests so it can log
 //TODO Saving it in a logfile with timestamps?
+
 func (s *server) LogAction(ctx context.Context, in *pb.LogRequest) (*pb.LogReply, error) {
-	return &pb.LogReply{Code: "Logging done"}, nil
+	fmt.Println("New Log! " + in.Info)
+	return &pb.LogReply{Code: true}, nil
 }
 
 func main() {

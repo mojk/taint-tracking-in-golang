@@ -31,6 +31,11 @@ func log_event(information string, client pb.LogClient, ctx context.Context) {
 	}
 	log.Printf("Sucessful? %v", rpc_log.Code)
 }
+// this func will be send to the control_server and ask if it should filter any data before sending it to the log_server or something
+//todo
+func filter_event() {
+
+}
 
 func main() {
 	fmt.Println("Starting up the control_client..")
@@ -39,7 +44,7 @@ func main() {
 	conn_car, err := grpc.Dial(address_car, grpc.WithInsecure())
 	conn_log, err := grpc.Dial(address_log, grpc.WithInsecure())
 	if err != nil {
-		log.Fatalf("did not connect, v%", err)
+		log.Fatalf("did not connect,%v", err)
 	}
 	defer conn_car.Close()
 	defer conn_log.Close()

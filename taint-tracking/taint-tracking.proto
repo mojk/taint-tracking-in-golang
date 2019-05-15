@@ -22,13 +22,31 @@
     rpc logAction(LogRequest) returns (LogReply) {}
  }
 
+ service Filter {
+    rpc filterData(FilterRequest) returns (FilterReply) {}
+ }
+
+message FilterRequest {
+    bool getVel = 1;
+    bool incVel = 2;
+    bool decVel = 3;
+}
+
+message FilterReply {
+    bool success = 1;
+    bool getVel = 2;
+    bool incVel = 3;
+    bool decVel = 4;
+}
 message LogRequest {
     string info = 1;
     bool code = 2;
 }
 
 message LogReply {
-    string code = 1;
+    string info = 1;
+    bool code = 2;
+
 }
 
 message VelocityRequest {

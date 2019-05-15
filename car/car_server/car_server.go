@@ -1,5 +1,4 @@
 package main
-
 import (
 	"context"
 	"log"
@@ -8,7 +7,7 @@ import (
 	"strconv"
 
 	"google.golang.org/grpc" // grpc package
-	pb "taint-tracking/taint-tracking" // protocol buffers
+	pb "taint-tracking-in-golang/taint-tracking" // protocol buffers
 )
 
 /* constants*/
@@ -16,21 +15,19 @@ const (
 	port = ":50051"
 )
 
-/* variables */
 var velocity = int32(10)
 
 type server struct{}
 
-/* returning the current velocity of the car */
-
+/*** FUNC ***/
+// Requests the current speed of the car
+// Recieves a VelocityRequest and will respond with a VelocityReply containing the current velocity
 func (s *server) GetVelocity(ctx context.Context, in *pb.VelocityRequest) (*pb.VelocityReply, error) {
-	return &pb.VelocityReply{Velocity: velocity}, nil
+	return &pb.VelocityReply{Velocity: velocity, Log: true}, nil
 }
-
+/*** FUNC ***/
 /* Increases the velocity with the value that is presented in the Request 
- * Answers the client with the new velocity
- */
-
+* Answers the client with the new velocity */
 func (s *server) IncVelocity(ctx context.Context, in *pb.IncVelocityRequest) (*pb.IncVelocityReply, error) {
 	if(velocity > 100) {
 		fmt.Println("Too fast, the limit is 100 mph")
@@ -39,12 +36,11 @@ func (s *server) IncVelocity(ctx context.Context, in *pb.IncVelocityRequest) (*p
 	fmt.Println("Increasing the velocity with.." + strconv.Itoa(int(in.Inc)))
 	velocity = IncVelocity(velocity,in.Inc)
 	fmt.Println("New velocity of the car is.." + strconv.Itoa(int(velocity)))
-	return &pb.IncVelocityReply{NewVelocity: velocity}, nil
+	return &pb.IncVelocityReply{NewVelocity: velocity, ReturnCode: true}, nil
 }
-
+/*** FUNC ***/
 /* Decreases the velocity with the value that is presented in the Request
- * Answers the client with the new velocity
- */
+* Answers the client with the new velocity */
 func (s *server) DecVelocity(ctx context.Context, in *pb.DecVelocityRequest) (*pb.DecVelocityReply, error) {
 	fmt.Println("Decreasing the velocity with.." + strconv.Itoa(int(in.Dec)))
 	velocity = DecVelocity(velocity, in.Dec)
@@ -56,7 +52,7 @@ func (s *server) DecVelocity(ctx context.Context, in *pb.DecVelocityRequest) (*p
 func IncVelocity(current_velocity int32, increase int32) int32 {
 	return current_velocity + increase
 }
-
+/* function for doing the ismple aritmehtics for decreasing the velocity */
 func DecVelocity(current_velocity int32, increase int32) int32 {
 	return current_velocity + increase
 }
