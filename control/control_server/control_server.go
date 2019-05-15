@@ -1,4 +1,5 @@
 package main
+
 /*
  * The Control_server will communicate with the control_client & the log_client
  *
@@ -7,6 +8,7 @@ package main
  * 
  * log_client will send requests to the control_server to filter out different data
  */
+ 
 import (
 	"context"
 	"log"

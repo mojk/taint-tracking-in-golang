@@ -32,8 +32,9 @@ func log_event(information string, client pb.LogClient, ctx context.Context) {
 	log.Printf("Sucessful? %v", rpc_log.Code)
 }
 // this func will be send to the control_server and ask if it should filter any data before sending it to the log_server or something
-//todo
+//TODO
 func filter_event() {
+	rpc_filter, err := client.FilterData(ctx, &pb.FilterRequest{  })
 
 }
 

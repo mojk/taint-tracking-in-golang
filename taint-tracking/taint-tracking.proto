@@ -24,7 +24,16 @@
 
  service Filter {
     rpc filterData(FilterRequest) returns (FilterReply) {}
+    rpc filterQuestion(QuestionRequest) returns (QuestionReply) {}
  }
+
+message QuestionRequest {
+    bool action = 1;
+}
+
+message QuestionReply {
+    bool action = 1;
+}
 
 message FilterRequest {
     bool getVel = 1;
