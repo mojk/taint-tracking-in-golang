@@ -2,7 +2,7 @@ package main
 
 /*
  * The Control_server will communicate with the control_client & the log_client
- *
+ * It will listen on por 50053 for incoming requests
  * control_client will send requests if it should filter out data before sending it
  * to the log_server
  * 
@@ -31,10 +31,13 @@ var decVel bool
 type server struct {}
 
 /* control_client issues these request*/
+/* asks for what it should filter or not */
 func (s *server) FilterQuestion(ctx context.Context, in *pb.FilterQuestionRequest) (*pb.FilterQuestionReply, error) {
 	return &pb.FilterQuestionReply{Action: true, Get: getVel, Inc: incVel, Dec: decVel}, nil
 }
+
 /* log_client issues these requests*/
+/* */
 func (s *server) FilterData(ctx context.Context, in *pb.FilterRequest) (*pb.FilterReply, error) {
 	//inital values
 	getVel = true
@@ -51,7 +54,7 @@ func (s *server) FilterData(ctx context.Context, in *pb.FilterRequest) (*pb.Filt
 		fmt.Println("Filtering out DecVelocity()")
 		decVel = false
 	}
-
+	
 	return &pb.FilterReply{Success: true, GetVel: getVel, IncVel: incVel, DecVel: decVel},nil
 }
 

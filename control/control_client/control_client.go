@@ -3,7 +3,7 @@ package main
 /* Controls for the car
  * For every rpc-call it makes, it should send it also to the log server
  * TODO Send requests to the logserver - DONE (separate func)
- * TODO send requests to the control_server - ongoing
+ * TODO send requests to the control_server - DONE (separate func)
  */
 
 import (
@@ -53,8 +53,6 @@ This function will perform a rpc to the control_server asking what the filter op
 @param get - GetVelocity()
 @param inc - IncVelocity()
 @param dec - DecVelocity()
-@param client - What type of client it should act like
-@param ctx - Context
 */
 
 func filter_event(client pb.FilterClient, ctx context.Context) {
