@@ -28,6 +28,9 @@ func main() {
 	
 	/* creating the client */
 	c := pb.NewFilterClient(conn_control)
+	
+	for {
+
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
@@ -38,4 +41,5 @@ func main() {
 	}
 	log.Printf("Filter request has been sent! %v" +  strconv.FormatBool(rpc_filter.Success))
 
+	}
 }

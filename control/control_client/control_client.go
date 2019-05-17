@@ -2,8 +2,6 @@ package main
 
 /* Controls for the car
  * For every rpc-call it makes, it should send it also to the log server
- * TODO Send requests to the logserver - DONE (separate func)
- * TODO send requests to the control_server - DONE (separate func)
  */
 
 import (
@@ -99,9 +97,11 @@ func main() {
 	c2 := pb.NewLogClient(conn_log)
 	c3 := pb.NewFilterClient(conn_control)
 
+	for {
+	
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()	
-
+	
 	/* Checking filter options before performing rpc */
 	filter_event(c3, ctx);
 
@@ -127,4 +127,5 @@ func main() {
 		log_event("IncVelocity()", c2, ctx) // if successful, send info to the logging server
 		log.Printf("Increasing the velocity, current velocity = %v", rpc_incV.NewVelocity)
 	}	
+ }
 }
