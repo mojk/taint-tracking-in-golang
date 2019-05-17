@@ -1,0 +1,124 @@
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlinit.go:39: sources: [func(c taint-tracking-in-golang/api.AddClient) int32 taint-tracking-in-golang.fun_grpc]
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlinit.go:40: sinks: [func(s int32) taint-tracking-in-golang.writer]
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlinit.go:47: mainpkg package taint-tracking-in-golang
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlinit.go:65: Analyze: 1 : packages([package taint-tracking-in-golang])
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:115: s string func(s int32) taint-tracking-in-golang.writer
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:129:   new vc:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer: 
+# Name: taint-tracking-in-golang.main
+# Package: taint-tracking-in-golang
+# Location: /Users/mbrattlof/go/src/taint-tracking-in-golang/client/main.go:11:6
+# Recover: 3
+func main():
+0:                                                                entry P:0 S:2
+	t0 = google.golang.org/grpc.WithInsecure() google.golang.org/grpc.DialOption
+	t1 = new [1]google.golang.org/grpc.DialOption (varargs) *[1]google.golang.org/grpc.DialOption
+	t2 = &t1[0:int]                      *google.golang.org/grpc.DialOption
+	*t2 = t0
+	t3 = slice t1[:]                    []google.golang.org/grpc.DialOption
+	t4 = google.golang.org/grpc.Dial(":7777":string, t3...) (*google.golang.org/grpc.ClientConn, error)
+	t5 = extract t4 #0                   *google.golang.org/grpc.ClientConn
+	t6 = extract t4 #1                                                error
+	t7 = t6 != nil:error                                               bool
+	if t7 goto 1 else 2
+1:                                                              if.then P:1 S:1
+	t8 = new [1]interface{} (varargs)                       *[1]interface{}
+	t9 = &t8[0:int]                                            *interface{}
+	t10 = change interface interface{} <- error (t6)            interface{}
+	*t9 = t10
+	t11 = slice t8[:]                                         []interface{}
+	t12 = log.Fatalf("did not connect: %s":string, t11...)               ()
+	jump 2
+2:                                                              if.done P:2 S:0
+	defer (*google.golang.org/grpc.ClientConn).Close(t5)
+	t13 = taint-tracking-in-golang/api.NewAddClient(t5) taint-tracking-in-golang/api.AddClient
+	t14 = fun_grpc(t13)                                               int32
+	t15 = writer(t14)                                                    ()
+	rundefers
+	return
+3:                                                              recover P:0 S:0
+	return
+
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:115: s string func(s int32) taint-tracking-in-golang.writer
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:129:   new vc:  [1] Method: google.golang.org/grpc.WithInsecure 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer: 
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:115: s string func(s int32) taint-tracking-in-golang.writer
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:129:   new vc:  [2] Method: google.golang.org/grpc.Dial 
+ entryValue (Lattice) : LatticePointer: target : Untainted|opts : Uninitialized| 
+ exitValue (Lattice) : LatticePointer: 
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:115: s string func(s int32) taint-tracking-in-golang.writer
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:129:   new vc:  [3] Method: log.Fatalf 
+ entryValue (Lattice) : LatticePointer: format : Untainted|v : Uninitialized| 
+ exitValue (Lattice) : LatticePointer: 
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:115: s string func(s int32) taint-tracking-in-golang.writer
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:129:   new vc:  [4] Method: (*google.golang.org/grpc.ClientConn).Close 
+ entryValue (Lattice) : LatticePointer: cc : Uninitialized| 
+ exitValue (Lattice) : LatticePointer: 
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:115: s string func(s int32) taint-tracking-in-golang.writer
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:129:   new vc:  [5] Method: taint-tracking-in-golang/api.NewAddClient 
+ entryValue (Lattice) : LatticePointer: cc : Uninitialized| 
+ exitValue (Lattice) : LatticePointer: 
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:115: s string func(s int32) taint-tracking-in-golang.writer
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: google.golang.org/grpc.WithInsecure() | targetContext:  [1] Method: google.golang.org/grpc.WithInsecure 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: google.golang.org/grpc.Dial(":7777":string, t3...) | targetContext:  [2] Method: google.golang.org/grpc.Dial 
+ entryValue (Lattice) : LatticePointer: target : Untainted|opts : Uninitialized| 
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: log.Fatalf("did not connect: %s":string, t11...) | targetContext:  [3] Method: log.Fatalf 
+ entryValue (Lattice) : LatticePointer: format : Untainted|v : Uninitialized| 
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: defer (*google.golang.org/grpc.ClientConn).Close(t5) | targetContext:  [4] Method: (*google.golang.org/grpc.ClientConn).Close 
+ entryValue (Lattice) : LatticePointer: cc : Uninitialized| 
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: taint-tracking-in-golang/api.NewAddClient(t5) | targetContext:  [5] Method: taint-tracking-in-golang/api.NewAddClient 
+ entryValue (Lattice) : LatticePointer: cc : Uninitialized| 
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: google.golang.org/grpc.WithInsecure() | targetContext:  [1] Method: google.golang.org/grpc.WithInsecure 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: google.golang.org/grpc.Dial(":7777":string, t3...) | targetContext:  [2] Method: google.golang.org/grpc.Dial 
+ entryValue (Lattice) : LatticePointer: target : Untainted|opts : Uninitialized| 
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: log.Fatalf("did not connect: %s":string, t11...) | targetContext:  [3] Method: log.Fatalf 
+ entryValue (Lattice) : LatticePointer: format : Untainted|v : Uninitialized| 
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: defer (*google.golang.org/grpc.ClientConn).Close(t5) | targetContext:  [4] Method: (*google.golang.org/grpc.ClientConn).Close 
+ entryValue (Lattice) : LatticePointer: cc : Uninitialized| 
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/wlHelper.go:239: t: Context:  [0] Method: taint-tracking-in-golang.main 
+ entryValue (Lattice) : LatticePointer:  
+ exitValue (Lattice) : LatticePointer:   
+ node: taint-tracking-in-golang/api.NewAddClient(t5) | targetContext:  [5] Method: taint-tracking-in-golang/api.NewAddClient 
+ entryValue (Lattice) : LatticePointer: cc : Uninitialized| 
+ exitValue (Lattice) : LatticePointer:    | len transition 5
+/Users/mbrattlof/go/src/github.com/akwick/gotcha/worklist/valueContext.go:115: s string func(s int32) taint-tracking-in-golang.writer

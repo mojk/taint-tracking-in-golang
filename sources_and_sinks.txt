@@ -1,0 +1,2 @@
+<func(c taint-tracking-in-golang/api.AddClient) int32; taint-tracking-in-golang.fun_grpc> -> _SOURCE_
+<func(s int32) ; taint-tracking-in-golang.writer> -> _SINK_
