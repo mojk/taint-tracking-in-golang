@@ -35,9 +35,7 @@ type server struct {}
 func (s *server) FilterQuestion(ctx context.Context, in *pb.FilterQuestionRequest) (*pb.FilterQuestionReply, error) {
 	return &pb.FilterQuestionReply{Action: true, Get: getVel, Inc: incVel, Dec: decVel}, nil
 }
-
 /* log_client issues these requests*/
-/* */
 func (s *server) FilterData(ctx context.Context, in *pb.FilterRequest) (*pb.FilterReply, error) {
 	//inital values
 	getVel = true
@@ -54,7 +52,7 @@ func (s *server) FilterData(ctx context.Context, in *pb.FilterRequest) (*pb.Filt
 		fmt.Println("Filtering out DecVelocity()")
 		decVel = false
 	}
-	
+
 	return &pb.FilterReply{Success: true, GetVel: getVel, IncVel: incVel, DecVel: decVel},nil
 }
 
