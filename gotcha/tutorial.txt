@@ -1,0 +1,34 @@
+COMMAND FOR EXECUTING THE GOTCHA ENGINE
+
+gotcha -ssf="./sources_and_sinks.txt" -src="client/main.go" -path="taint-tracking-in-golang"
+
+- ssf is the sources and sinks file
+- src is the file that you want to analyze
+- path is the path to your package, e.g., if your package is in $GOPATH/src/example you'll have to have path="example"
+
+EXAMPLE OF SSF FILE CONFIGURATION
+
+<func(c taint-tracking-in-golang/api.AddClient) int32; taint-tracking-in-golang.fun_grpc> -> _SOURCE_
+<func(s int32) ; taint-tracking-in-golang.writer> -> _SINK_
+
+- in this example we have fun_grpc as a source
+- it takes a parameter c which is of type taint-tracking-in-golang/api.AddClient
+- where api is the package name for the proto
+- as sink we have a writer function
+
+EXAMPLE CODE
+
+func writer(s int32) {
+
+}
+
+func fun_grpc(c api.AddClient) int32 {
+	response, err := c.AddNumbers(context.Background(), &api.Request{A: 1, B: 1})
+	if err != nil {
+		log.Fatalf("Error when calling SayHello: %s", err)
+	}
+
+	fmt.Printf("The sum of %d and %d are %d\n", 1, 1, response.Result)
+
+	return response.Result
+}
