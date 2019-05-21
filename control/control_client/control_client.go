@@ -6,20 +6,19 @@ package main
 
 import (
 	"context"
-	"log"
 	"fmt"
-	"time"
+	"log"
 	"strconv"
+	"time"
 
 	"google.golang.org/grpc"
 	pb "taint-tracking-in-golang/taint-tracking"
-
 )
 
 /* addresses and the ports used for communicating with the services */
 const (
-	address_car = "localhost:50051"
-	address_log = "localhost:50052"
+	address_car     = "localhost:50051"
+	address_log     = "localhost:50052"
 	address_control = "localhost:50053"
 )
 
@@ -28,13 +27,14 @@ var filter_get bool
 var filter_inc bool
 var filter_dec bool
 var current_velocity int32
+
 //
 func get_velocity(client pb.DriveClient, ctx context.Context, logs pb.LogClient) {
 	rpc_getV, err := client.GetVelocity(ctx, &pb.VelocityRequest{Req: "Simple request"})
 	if err != nil {
 		log.Fatalf("Could not increase the velocity: %v", err)
 	}
-	if (rpc_getV.Log == true) {
+	if rpc_getV.Log == true {
 		log_event("GetVelocity()", logs, ctx) // if successful, send info to the logging server
 		current_velocity = rpc_getV.Velocity
 		log.Printf("Current velocity is %v", current_velocity)
@@ -43,34 +43,34 @@ func get_velocity(client pb.DriveClient, ctx context.Context, logs pb.LogClient)
 
 // function for decreasing the velocity of the car
 func decrease_velocity(speed int, client pb.DriveClient, ctx context.Context, logs pb.LogClient) {
-		rpc_decV, err := client.DecVelocity(ctx, &pb.DecVelocityRequest{Dec: 40})
-		if err != nil {
-			log.Fatalf("Could not decrease the velocity: %v", err)
+	rpc_decV, err := client.DecVelocity(ctx, &pb.DecVelocityRequest{Dec: 40})
+	if err != nil {
+		log.Fatalf("Could not decrease the velocity: %v", err)
 
-		}
-		if rpc_decV.ReturnCode == false {
-			log.Printf("Could not decrease the velocity")
-		} else {
-			log_event("DecVelocity()",logs ,ctx) // if successful, send info to the logging server
-			current_velocity =  rpc_decV.NewVelocity
-			log.Printf("Decreasing the velocity, current velocity = %v", current_velocity)
-		}
+	}
+	if rpc_decV.ReturnCode == false {
+		log.Printf("Could not decrease the velocity")
+	} else {
+		log_event("DecVelocity()", logs, ctx) // if successful, send info to the logging server
+		current_velocity = rpc_decV.NewVelocity
+		log.Printf("Decreasing the velocity, current velocity = %v", current_velocity)
+	}
 }
 
 // function for increasing the velocity of the car
 func increase_velocity(speed int, client pb.DriveClient, ctx context.Context, logs pb.LogClient) {
-	
-		rpc_incV, err := client.IncVelocity(ctx, &pb.IncVelocityRequest{Inc: 10}) // sending a request to increase the velocity
-		if err != nil {
-			log.Fatalf("Could not increase the velocity: %v", err)
-		}
-		if rpc_incV.ReturnCode == false {
-			log.Printf("Could not increase the velocity")
-		} else {
-			log_event("IncVelocity()", logs, ctx) // if successful, send info to the logging server
-			current_velocity = rpc_incV.NewVelocity
-			log.Printf("Increasing the velocity, current velocity = %v", current_velocity)
-		}	
+
+	rpc_incV, err := client.IncVelocity(ctx, &pb.IncVelocityRequest{Inc: 10}) // sending a request to increase the velocity
+	if err != nil {
+		log.Fatalf("Could not increase the velocity: %v", err)
+	}
+	if rpc_incV.ReturnCode == false {
+		log.Printf("Could not increase the velocity")
+	} else {
+		log_event("IncVelocity()", logs, ctx) // if successful, send info to the logging server
+		current_velocity = rpc_incV.NewVelocity
+		log.Printf("Increasing the velocity, current velocity = %v", current_velocity)
+	}
 }
 
 /*
@@ -80,17 +80,17 @@ func log_event(information string, client pb.LogClient, ctx context.Context) {
 	fmt.Println("Sending info to the logging server")
 	rpc_log, err := client.LogAction(ctx, &pb.LogRequest{Info: information})
 	if err != nil {
-		log.Fatalf("Could not send info to the logging server: %v",err)
+		log.Fatalf("Could not send info to the logging server: %v", err)
 	}
-	
-	if (rpc_log.Code) {
-		log.Printf("Sucessful! %v:", rpc_log.Code)		
+
+	if rpc_log.Code {
+		log.Printf("Sucessful! %v:", rpc_log.Code)
 	} else {
-		log.Printf("Failure! %v:", rpc_log.Code)		
+		log.Printf("Failure! %v:", rpc_log.Code)
 	}
 }
 
-/* 
+/*
 This function will perform a rpc to the control_server asking what the filter options look like. The parameters are of the type bool and true indicates that it should be filtered, and false indicates that is should be kept.
 @param get - GetVelocity()
 @param inc - IncVelocity()
@@ -105,18 +105,18 @@ func filter_event(client pb.FilterClient, ctx context.Context) {
 	log.Printf("Response from the server %v", strconv.FormatBool(rpc_filter.Action))
 
 	// If it returns true, it means the filter options may be changed
-	if (rpc_filter.Action == true) {
+	if rpc_filter.Action == true {
 		fmt.Println("Changing the filtering-options..")
 
-		if(rpc_filter.Inc == true) {
+		if rpc_filter.Inc == true {
 			filter_inc = true
 		}
 
-		if(rpc_filter.Dec == true) {
+		if rpc_filter.Dec == true {
 			filter_dec = true
 		}
 
-		if(rpc_filter.Get == true) {
+		if rpc_filter.Get == true {
 			filter_get = true
 		}
 	}
@@ -142,22 +142,32 @@ func main() {
 	c2 := pb.NewLogClient(conn_log)
 	c3 := pb.NewFilterClient(conn_control)
 
+	writer(reader())
+
 	for {
-	
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
-	defer cancel()	
-	
-	/* Checking filter options before performing rpc */
-	filter_event(c3, ctx);
 
-	// Requesting the velocity to decide what it should do
-	get_velocity(c, ctx, c2)
+		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+		defer cancel()
 
-	// Decision made depending on the current velocity
-	if(current_velocity < 100) { // if the velocity is below 100 we can increase!
-		increase_velocity(10, c, ctx, c2)
-	 } else if (current_velocity >= 100) { // if the velocity is higher we should decrease
-		 decrease_velocity(10,c, ctx, c2)
-  }
- }
+		/* Checking filter options before performing rpc */
+		filter_event(c3, ctx)
+
+		// Requesting the velocity to decide what it should do
+		get_velocity(c, ctx, c2)
+
+		// Decision made depending on the current velocity
+		if current_velocity < 100 { // if the velocity is below 100 we can increase!
+			increase_velocity(10, c, ctx, c2)
+		} else if current_velocity >= 100 { // if the velocity is higher we should decrease
+			decrease_velocity(10, c, ctx, c2)
+		}
+	}
+}
+
+func writer(s string) {
+
+}
+
+func reader() string {
+	return "tainted"
 }

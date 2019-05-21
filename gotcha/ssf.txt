@@ -1,0 +1,2 @@
+<func() string; taint-tracking-in-golang.reader> -> _SOURCE_
+<func(s string) ; taint-tracking-in-golang.writer> -> _SINK_
