@@ -28,8 +28,7 @@ var filter_get bool
 var filter_inc bool
 var filter_dec bool
 var current_velocity int32
-
-// function for returning the velocity of the car
+//
 func get_velocity(client pb.DriveClient, ctx context.Context, logs pb.LogClient) {
 	rpc_getV, err := client.GetVelocity(ctx, &pb.VelocityRequest{Req: "Simple request"})
 	if err != nil {
