@@ -23,11 +23,14 @@ const (
 type server struct{}
 
 /* control_client will issue this request */
+// Function for answering LogRequests issued by client-nodes
+// For ever LogRequest it receives it will return a boolean, indicating that it has recieved it and logged it.
 func (s *server) LogAction(ctx context.Context, in *pb.LogRequest) (*pb.LogReply, error) {
 	fmt.Println("New Log! " + in.Info)
 	return &pb.LogReply{Code: true}, nil
 }
-
+// Main function for setting up the server.
+// This is a RegisterLogServer, more information in the protobuf-files.
 func main() {
 	fmt.Println("Starting the log_server..")
 

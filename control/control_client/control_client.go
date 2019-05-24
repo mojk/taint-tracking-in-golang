@@ -15,20 +15,20 @@ import (
 	pb "taint-tracking-in-golang/taint-tracking"
 )
 
-/* addresses and the ports used for communicating with the services */
+// Addresses and the ports used for communicating with the services
 const (
 	address_car     = "localhost:50051"
 	address_log     = "localhost:50052"
 	address_control = "localhost:50053"
 )
 
-// var
+// variables
 var filter_get bool
 var filter_inc bool
 var filter_dec bool
 var current_velocity int32
 
-//
+// Function for issuing a rpc-call to the car-server to request the current velocity.
 func get_velocity(client pb.DriveClient, ctx context.Context, logs pb.LogClient) {
 	rpc_getV, err := client.GetVelocity(ctx, &pb.VelocityRequest{Req: "Simple request"})
 	if err != nil {
@@ -41,7 +41,7 @@ func get_velocity(client pb.DriveClient, ctx context.Context, logs pb.LogClient)
 	}
 }
 
-// function for decreasing the velocity of the car
+// Function for issuing a rpc-call to the car-server to request to decrease the velocity.
 func decrease_velocity(speed int, client pb.DriveClient, ctx context.Context, logs pb.LogClient) {
 	rpc_decV, err := client.DecVelocity(ctx, &pb.DecVelocityRequest{Dec: 40})
 	if err != nil {
@@ -57,7 +57,7 @@ func decrease_velocity(speed int, client pb.DriveClient, ctx context.Context, lo
 	}
 }
 
-// function for increasing the velocity of the car
+// Function for issuing a rpc-call to the car-server to request to increase the velocity.
 func increase_velocity(speed int, client pb.DriveClient, ctx context.Context, logs pb.LogClient) {
 
 	rpc_incV, err := client.IncVelocity(ctx, &pb.IncVelocityRequest{Inc: 10}) // sending a request to increase the velocity
@@ -72,10 +72,7 @@ func increase_velocity(speed int, client pb.DriveClient, ctx context.Context, lo
 		log.Printf("Increasing the velocity, current velocity = %v", current_velocity)
 	}
 }
-
-/*
-This function will send a string to the log_server who in turn will display every rpc-call that the contol has made
-*/
+// Function for sending information to the log-service
 func log_event(information string, client pb.LogClient, ctx context.Context) {
 	fmt.Println("Sending info to the logging server")
 	rpc_log, err := client.LogAction(ctx, &pb.LogRequest{Info: information})

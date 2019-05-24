@@ -30,12 +30,14 @@ var decVel bool
 
 type server struct {}
 
-/* control_client issues these request*/
-/* asks for what it should filter or not */
+// Function used to answer FilterQuestionRequest issued from a client-node.
+// The server will answer with a FilterQuestionReply containing information regarding what rpc-calls should be filtered out.
 func (s *server) FilterQuestion(ctx context.Context, in *pb.FilterQuestionRequest) (*pb.FilterQuestionReply, error) {
 	return &pb.FilterQuestionReply{Action: true, Get: getVel, Inc: incVel, Dec: decVel}, nil
 }
-/* log_client issues these requests*/
+
+// Function used to answer FilterRequest issued from a client-node.
+// The server will set the options accordingly.
 func (s *server) FilterData(ctx context.Context, in *pb.FilterRequest) (*pb.FilterReply, error) {
 	//inital values
 	getVel = true
@@ -55,7 +57,8 @@ func (s *server) FilterData(ctx context.Context, in *pb.FilterRequest) (*pb.Filt
 
 	return &pb.FilterReply{Success: true, GetVel: getVel, IncVel: incVel, DecVel: decVel},nil
 }
-
+// Main function for setting up the server
+// This server is a RegisterFilterServer, more information in the protobuf-files.
 func main() {
 	fmt.Println("Starting up the control_server")
 	
