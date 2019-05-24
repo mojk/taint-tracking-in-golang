@@ -1,2 +1,2 @@
-<func() string; taint-tracking-in-golang.reader> -> _SOURCE_
-<func(s string) ; taint-tracking-in-golang.writer> -> _SINK_
+<func() int; taint-tracking-in-golang.remote_source> -> _SOURCE_
+<func(speed int, client taint-tracking-in-golang/taint-tracking.DriveClient, ctx context.Context, logs taint-tracking-in-golang/taint-tracking.LogClient) ; taint-tracking-in-golang.increase_velocity> -> _SINK_

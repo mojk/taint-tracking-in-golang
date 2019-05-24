@@ -122,6 +122,10 @@ func filter_event(client pb.FilterClient, ctx context.Context) {
 	}
 }
 
+func remote_source() int {
+	return 10
+}
+
 func main() {
 	fmt.Println("Starting up the control_client..")
 	current_velocity = 0
@@ -142,8 +146,6 @@ func main() {
 	c2 := pb.NewLogClient(conn_log)
 	c3 := pb.NewFilterClient(conn_control)
 
-	writer(reader())
-
 	for {
 
 		ctx, cancel := context.WithTimeout(context.Background(), time.Second)
@@ -157,17 +159,11 @@ func main() {
 
 		// Decision made depending on the current velocity
 		if current_velocity < 100 { // if the velocity is below 100 we can increase!
-			increase_velocity(10, c, ctx, c2)
+
+			// Increase velocity with this new neat function that uses machine learning lolz
+			increase_velocity(remote_source(), c, ctx, c2)
 		} else if current_velocity >= 100 { // if the velocity is higher we should decrease
 			decrease_velocity(10, c, ctx, c2)
 		}
 	}
-}
-
-func writer(s string) {
-
-}
-
-func reader() string {
-	return "tainted"
 }
