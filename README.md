@@ -20,9 +20,6 @@ Setting the path correctly is quite important, do the following:
 ### Architecture of the system
 ![alt text](https://i.imgur.com/BE5K0M4.jpg)
 # Useful links
-### Proposal / Project Idea
-- Written by Per Hallgren @ Einride
-https://docs.google.com/document/d/1FiiFnHUEg-CaLzTe8mgLnbbiA1u6iNjulv9qPpXE500/edit
 ### Papers
 - All You Ever Wanted to Know About Dynamic Taint Analysis and Forward Symbolic Execution
 https://users.ece.cmu.edu/~aavgerin/papers/Oakland10.pdf
